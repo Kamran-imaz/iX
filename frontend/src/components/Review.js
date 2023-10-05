@@ -13,7 +13,7 @@ const navigate=useNavigate()
   const savePost = async () => {
     try {
       // Send a POST request to your backend API
-      await axios.post('http://localhost:80/routes/cedb', formData);
+      await axios.post('https://ixapp.onrender.com/routes/cedb', formData);
 
       // Display a success message
       window.alert('Data Saved Successfully!!!');

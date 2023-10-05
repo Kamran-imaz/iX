@@ -21,7 +21,7 @@ export default function Main() {
   const search = async () => {
     try {
       // Send a GET request to your backend API with user input
-      const response = await axios.get('http://localhost:80/routes/displayDb', {
+      const response = await axios.get('https://ixapp.onrender.com/routes/displayDb', {
         params: formData,
       });
       window.alert('Searched successfully')

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
-
+const dotenv=require('dotenv')
+dotenv.config({ path: `${__dirname}/../config.env` })
 const connectToMongo = () => {
-  mongoose.connect('mongodb+srv://kamranimaz:kamran.imaz.109677@cluster0.bpgz2lu.mongodb.net/', {
+  mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     // useFindAndModify:false,

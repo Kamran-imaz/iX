@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Review() {
   const [formData, setFormData] = useState({
     state: '',
@@ -9,14 +11,19 @@ export default function Review() {
     categoryName: '',
     rating: '',
   });
-const navigate=useNavigate()
+  const navigate = useNavigate()
   const savePost = async () => {
     try {
       // Send a POST request to your backend API
+      formData.state = formData.state.charAt(0).toUpperCase() + formData.state.slice(1)
+      formData.city = formData.city.charAt(0).toUpperCase() + formData.city.slice(1)
+      formData.category = formData.category.charAt(0).toUpperCase() + formData.category.slice(1)
+      formData.categoryName = formData.categoryName.charAt(0).toUpperCase() + formData.categoryName.slice(1)
       await axios.post('https://ixapp.onrender.com/routes/cedb', formData);
 
       // Display a success message
-      window.alert('Data Saved Successfully!!!');
+      // toast.success("Great") this part will be implemented in phase 3 development of the website
+      // window.alert('Data Saved Successfully!!!');
 
       // Clear the form
       setFormData({
@@ -126,6 +133,7 @@ const navigate=useNavigate()
         >
           Post
         </button>
+        <ToastContainer />
       </div>
     </>
   );

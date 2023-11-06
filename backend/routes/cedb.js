@@ -15,7 +15,8 @@ router.post('/', async (req, res) => {
             console.log(update)
             
         } else {
-            const user = new User({ state, city, category, categoryName, rating });
+            const Count=await checkData.count+1
+            const user = new User({ state, city, category, categoryName, rating , count:Count });
             await user.save();
             console.log('Saved Successfully!!!');
         }

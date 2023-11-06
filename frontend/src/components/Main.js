@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { ToastContainer, toast } from 'react-toastify';
 export default function Main() {
   const [formData, setFormData] = useState({
     state: '',
@@ -21,13 +21,41 @@ export default function Main() {
   const search = async () => {
     try {
       // Send a GET request to your backend API with user input
+      formData.state=formData.state.charAt(0).toUpperCase()+formData.state.slice(1)
+      formData.city=formData.city.charAt(0).toUpperCase()+formData.city.slice(1)
+      formData.category=formData.category.charAt(0).toUpperCase()+formData.category.slice(1)
       const response = await axios.get('https://ixapp.onrender.com/routes/displayDb', {
         params: formData,
       });
-      window.alert('Searched successfully')
+      const firstItem=response.data[0]
+      if(firstItem && firstItem.state.length!==0 && firstItem.city.length!==0 && firstItem.category.length!==0)
+      {
+        toast.success('Fetched Successfully!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       console.log(response.data)
       // Set the results from the backend response
       setResults(response.data);
+      }
+      else{
+        toast.error('Some Feilds are Empty!!!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+      }
     } catch (error) {
       console.error('Error:', error);
     }
@@ -80,6 +108,7 @@ export default function Main() {
       <div className="d-flex justify-content-center align-items-center">
         <button className="btn btn-outline-primary" onClick={search}>
           Search
+          <ToastContainer/>
         </button>
       </div>
       {/* Display search results */}
@@ -95,7 +124,7 @@ export default function Main() {
               <div className="card-body">
                 <strong>#{index+1}</strong> <br /><br />
                 <strong>{result.category[0].toUpperCase()}{result.category.slice(1)} Name:</strong> {result.categoryName[0].toUpperCase()}{result.categoryName.slice(1)}<br /> <br />
-                <strong>Rating:</strong> {result.rating} <span style={{color:'red'}}>(&#9734; {result.count})</span><br /> <br />
+                <strong>Rating:</strong> {result.rating} <span style={{color:'red'}}>(&#9734; {result.count+parseFloat(1)})</span><br /> <br />
                 <a href="/" className="btn btn-primary">Chat Section</a>
               </div>
             </div>

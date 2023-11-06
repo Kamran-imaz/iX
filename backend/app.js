@@ -1,3 +1,4 @@
+const dotenv=require("dotenv")
 const express=require('express');
 const connectToMongo = require('./models/mongodb');
 const cors=require('cors')
@@ -12,8 +13,11 @@ userSchema()
 app.use(cors())
 //app.use method.......which is used for routing to that particular API or endpoint....
 app.use(express.json())
-app.use('/routes/cedb',require('./routes/cedb'))
-app.use('/routes/displayDb',require('./routes/displayDb'))
+
+dotenv.config({path:'./config.env'})
+app.use(process.env.CEDB,require('./routes/cedb'))
+app.use(process.env.SEARCH_DATA,require('./routes/SearchData'))
+app.use(process.env.DISPLAY_DB,require('./routes/displayDb'))
 app.listen(port,()=>{
     console.log(`The Port is listening at ${port}`);
 })

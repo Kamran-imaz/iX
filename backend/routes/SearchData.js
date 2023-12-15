@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
   console.log('Matching documents:', checkData);
   
   res.json({
-    message: chekData
+    message: checkData
   });
 });
 

@@ -11,8 +11,10 @@ router.get('/', async (req, res) => {
             city: city.charAt(0).toUpperCase() + city.slice(1),
             category: category.charAt(0).toUpperCase() + category.slice(1)
         }).sort({ rating: -1 });
-
-        console.log(checkData);
+        
+        res.json({
+            message:checkData
+        })
     } catch (error) {
         console.log(error);
     }

@@ -5,17 +5,17 @@ const router=express.Router()
 
 router.post('/', async (req, res) => {
     try {
-        const { state, city, category, categoryName, rating ,count} = req.body;
+        const { state, city, category, categoryName, rating } = req.body;
         const checkData = await User.findOne({ category, categoryName });
-
+        // console.log(`The data is ${checkData.count}`)
         if (checkData) {
-            const avgRating=await (parseFloat(checkData.rating)+parseFloat(rating))/2
+            const avgRating= (parseFloat(checkData.rating)+parseFloat(rating))/2
             const Count=await checkData.count+1
             const update=await User.updateOne({category,categoryName},{$set:{rating:avgRating,count:Count}})
             console.log(update)
             
         } else {
-            const Count=await checkData.count+1
+            const Count=1
             const user = new User({ state, city, category, categoryName, rating , count:Count });
             await user.save();
             console.log('Saved Successfully!!!');

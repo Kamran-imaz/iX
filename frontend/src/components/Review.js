@@ -19,7 +19,7 @@ export default function Review() {
       formData.city = formData.city.charAt(0).toUpperCase() + formData.city.slice(1)
       formData.category = formData.category.charAt(0).toUpperCase() + formData.category.slice(1)
       formData.categoryName = formData.categoryName.charAt(0).toUpperCase() + formData.categoryName.slice(1)
-      await axios.post('https://ixapp.onrender.com/routes/cedb', formData);
+      await axios.post('http://localhost:80/routes/cedb', formData);
 
       // Display a success message
       // toast.success("Great") this part will be implemented in phase 3 development of the website

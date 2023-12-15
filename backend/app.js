@@ -15,9 +15,9 @@ app.use(cors())
 app.use(express.json())
 
 dotenv.config({path:'./config.env'})
-app.use(process.env.CEDB,require('./routes/cedb'))
+app.use('/routes/cedb',require('./routes/cedb'))
 app.use(process.env.SEARCH_DATA,require('./routes/SearchData'))
-app.use(process.env.DISPLAY_DB,require('./routes/displayDb'))
+app.use('/routes/displayDb',require('./routes/displayDb'))
 app.listen(port,()=>{
     console.log(`The Port is listening at ${port}`);
 })

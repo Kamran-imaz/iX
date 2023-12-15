@@ -24,11 +24,13 @@ export default function Main() {
       formData.state=formData.state.charAt(0).toUpperCase()+formData.state.slice(1)
       formData.city=formData.city.charAt(0).toUpperCase()+formData.city.slice(1)
       formData.category=formData.category.charAt(0).toUpperCase()+formData.category.slice(1)
-      const response = await axios.get('https://ixapp.onrender.com/routes/displayDb', {
+      const response = await axios.get('http://localhost:80/routes/displayDb', {
         params: formData,
       });
-      const firstItem=response.data[0]
-      if(firstItem && firstItem.state.length!==0 && firstItem.city.length!==0 && firstItem.category.length!==0)
+      const firstItem=response.data.message
+      console.log(`The first item is`);
+      console.log(firstItem)
+      if(firstItem)
       {
         toast.success('Fetched Successfully!', {
           position: "top-center",
@@ -40,9 +42,9 @@ export default function Main() {
           progress: undefined,
           theme: "light",
           });
-      console.log(response.data)
+      // console.log(response.data)
       // Set the results from the backend response
-      setResults(response.data);
+      setResults(response.data.message);
       }
       else{
         toast.error('Some Feilds are Empty!!!', {
@@ -117,6 +119,7 @@ export default function Main() {
     <>
       <h2>Search Results:</h2>
       <div className="row">
+     {/* { console.log(`The result is ${results}`)} */}
         {results.map((result, index) => (
           <div className="col-lg-4 col-md-4 col-sm-6 mb-4" key={index}>
             <div className="card " style={{ width: "18rem" }}>
